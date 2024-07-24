@@ -37,8 +37,8 @@ class MyCNN(nn.Module):
         super(MyCNN, self).__init__()
         self.growth_rate = growth_rate
 
-        # Initial convolution
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)  # Change 1 to 3 for RGB images
+        # Initial convolution for single-channel (grayscale) images
+        self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)  # Change 3 to 1 for grayscale images
         self.bn1 = nn.BatchNorm2d(64)
         self.pool1 = nn.MaxPool2d(3, stride=2, padding=1)
 

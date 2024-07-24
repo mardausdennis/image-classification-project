@@ -38,8 +38,6 @@ def train_model():
         transforms.RandomRotation(15),
         transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
         transforms.RandomResizedCrop(100, scale=(0.8, 1.0)),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,))
     ])
 
     dataset = ImagesDataset(image_dir=image_dir, transform=transform)
@@ -49,21 +47,22 @@ def train_model():
     val_size = len(dataset) - train_size
     train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
 
-    # Save validation indices
     val_indices = val_dataset.indices if isinstance(val_dataset, Subset) else []
     val_indices_path = os.path.join(base_dir, '..', 'data', 'validation_indices.npy')
     np.save(val_indices_path, val_indices)
 
-    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
+    batch_size = 32
+
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
     print("Initializing loss and optimizer...")
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 
     print("Starting training loop...")
-    num_epochs = 20  # Increase the number of epochs
+    num_epochs = 20
     for epoch in range(num_epochs):
         model.train()
         running_loss = 0.0
@@ -81,7 +80,7 @@ def train_model():
         scheduler.step()
         print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {running_loss / len(train_loader):.4f}')
 
-        # Evaluate on validation set
+        # Eval
         model.eval()
         val_loss = 0.0
         correct = 0
