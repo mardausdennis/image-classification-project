@@ -4,11 +4,14 @@ This project is for the Programming in Python II course, focusing on building a 
 
 ## Project Structure
 - `data/`: Contains the dataset files (images and labels).
+  - `training_data/`: Directory where the training images and CSV file are stored.
+  - `validation_indices.npy`: Numpy file storing the indices for the validation set.
 - `models/`: Contains the saved model files.
 - `src/`: Contains the source code files.
   - `architecture.py`: Contains the model architecture.
   - `dataset.py`: Contains data loading and preprocessing code.
   - `train.py`: Contains code for training the model.
+  - `evaluate.py`: Contains code for evaluating the model.
 - `requirements.txt`: Lists the dependencies required for the project.
 - `README.md`: Project overview and setup instructions.
 
@@ -32,4 +35,11 @@ This project is for the Programming in Python II course, focusing on building a 
     python src/train.py
     ```
 
+- To evaluate the model, run:
+    ```bash
+    python src/evaluate.py
+    ```
 
+## Notes
+- The dataset is expected to be in grayscale, and the model architecture and training process have been set up accordingly.
+- The `validation_indices.npy` file is used to separate the training and validation datasets.
