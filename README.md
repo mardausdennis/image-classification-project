@@ -6,10 +6,8 @@ This project is for the Programming in Python II course, focusing on building a 
 - `data/`: Contains the dataset files (images and labels).
 - `models/`: Contains the saved model files.
 - `src/`: Contains the source code files.
-  - `__init__.py`: Makes this directory a Python package.
   - `architecture.py`: Contains the model architecture.
   - `dataset.py`: Contains data loading and preprocessing code.
-  - `evaluate.py`: Contains code for model evaluation.
   - `train.py`: Contains code for training the model.
 - `requirements.txt`: Lists the dependencies required for the project.
 - `README.md`: Project overview and setup instructions.
@@ -26,7 +24,7 @@ This project is for the Programming in Python II course, focusing on building a 
     pip install -r requirements.txt
     ```
 
-3. Download and place the dataset in the `data/` directory.
+3. Download and place the dataset in the `data/training_data/` directory.
 
 ## Usage
 - To train the model, run:
@@ -34,7 +32,4 @@ This project is for the Programming in Python II course, focusing on building a 
     python src/train.py
     ```
 
-- To evaluate the model, run:
-    ```bash
-    python src/evaluate.py
-    ```
+
